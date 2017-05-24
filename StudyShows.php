@@ -31,7 +31,7 @@ function getRandomPageNumber($query){
 	$googleQueryUrl = 'https://www.googleapis.com/customsearch/v1?key='. $googleAPIKey .'&cx='. $googleCSEId .'&q=allintitle:'.$query.'&filter=0';
 	$googleSearch = getCURLOutput($googleQueryUrl, false);
 	$json = json_decode($googleSearch);
-	if($json->error)
+	if(isset($json->error))
 		exit();
 	$totalResults = $json->searchInformation->totalResults;
 	if($totalResults == 0)
@@ -55,7 +55,7 @@ function tweet(){
 		$googleQueryUrl = 'https://www.googleapis.com/customsearch/v1?key='. $googleAPIKey .'&cx='. $googleCSEId .'&start='.$pageNumber.'&q=allintitle:'.$query.'&filter=0';
 		$googleSearch = getCURLOutput($googleQueryUrl, false);
 		$json = json_decode($googleSearch);
-		if($json->error)
+		if(isset($json->error))
 			exit();
 		if(is_array($json->items)){
 			foreach ($json->items as $result){		
